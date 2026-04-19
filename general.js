@@ -1,18 +1,31 @@
-console.log("🔥 FILE IS RUNNING");
+console.log("🔥 SCRIPT STARTED");
 
 const axios = require('axios');
 
-console.log("🔥 AXIOS LOADED");
-
 const baseURL = 'http://localhost:5000';
 
-const run = async () => {
-    console.log("🔥 FUNCTION ENTERED");
+console.log("🔥 ABOUT TO CALL API");
 
-    const res = await axios.get(`${baseURL}/books`);
+(async () => {
+    try {
+        console.log("🔥 ENTERED ASYNC FUNCTION");
 
-    console.log("🔥 RESPONSE RECEIVED:");
-    console.log(res.data);
-};
+        const books = await axios.get(`${baseURL}/books`);
+        console.log("🔥 BOOKS OK:", books.data);
 
-run();
+        const isbn = await axios.get(`${baseURL}/isbn/1`);
+        console.log("🔥 ISBN OK:", isbn.data);
+
+        const author = await axios.get(`${baseURL}/author/Chinua%20Achebe`);
+        console.log("🔥 AUTHOR OK:", author.data);
+
+        const title = await axios.get(`${baseURL}/title/The%20Alchemist`);
+        console.log("🔥 TITLE OK:", title.data);
+
+        console.log("🔥 ALL DONE SUCCESSFULLY");
+
+    } catch (err) {
+        console.log("❌ ERROR OCCURRED:");
+        console.log(err.message);
+    }
+})();
