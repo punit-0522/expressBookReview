@@ -3,26 +3,25 @@ const axios = require('axios');
 const baseURL = 'http://localhost:5000';
 
 const run = async () => {
-    try {
-        console.log("\n--- GET ALL BOOKS ---");
-        let res = await axios.get(`${baseURL}/books`);
-        console.log(res.data);
+    console.log("\n========== BOOK API TEST ==========\n");
 
-        console.log("\n--- GET BOOK BY ISBN ---");
-        res = await axios.get(`${baseURL}/isbn/1`);
-        console.log(res.data);
+    const books = await axios.get(`${baseURL}/books`);
+    console.log("ALL BOOKS:");
+    console.log(JSON.stringify(books.data, null, 2));
 
-        console.log("\n--- GET BOOKS BY AUTHOR ---");
-        res = await axios.get(`${baseURL}/author/Chinua%20Achebe`);
-        console.log(res.data);
+    const isbn = await axios.get(`${baseURL}/isbn/1`);
+    console.log("\nISBN RESULT:");
+    console.log(JSON.stringify(isbn.data, null, 2));
 
-        console.log("\n--- GET BOOKS BY TITLE ---");
-        res = await axios.get(`${baseURL}/title/The%20Alchemist`);
-        console.log(res.data);
+    const author = await axios.get(`${baseURL}/author/Chinua%20Achebe`);
+    console.log("\nAUTHOR RESULT:");
+    console.log(JSON.stringify(author.data, null, 2));
 
-    } catch (err) {
-        console.log("ERROR:", err.message);
-    }
+    const title = await axios.get(`${baseURL}/title/The%20Alchemist`);
+    console.log("\nTITLE RESULT:");
+    console.log(JSON.stringify(title.data, null, 2));
+
+    console.log("\n========== END ==========\n");
 };
 
 run();
