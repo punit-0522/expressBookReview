@@ -2,32 +2,27 @@ const axios = require('axios');
 
 const baseURL = 'http://localhost:5000';
 
-const getAllBooks = async () => {
-    const res = await axios.get(`${baseURL}/books`);
-    console.log("ALL BOOKS:", res.data);
+const run = async () => {
+    try {
+        console.log("\n--- GET ALL BOOKS ---");
+        let res = await axios.get(`${baseURL}/books`);
+        console.log(res.data);
+
+        console.log("\n--- GET BOOK BY ISBN ---");
+        res = await axios.get(`${baseURL}/isbn/1`);
+        console.log(res.data);
+
+        console.log("\n--- GET BOOKS BY AUTHOR ---");
+        res = await axios.get(`${baseURL}/author/Chinua%20Achebe`);
+        console.log(res.data);
+
+        console.log("\n--- GET BOOKS BY TITLE ---");
+        res = await axios.get(`${baseURL}/title/The%20Alchemist`);
+        console.log(res.data);
+
+    } catch (err) {
+        console.log("ERROR:", err.message);
+    }
 };
 
-const getBookByISBN = async (isbn) => {
-    const res = await axios.get(`${baseURL}/isbn/${isbn}`);
-    console.log("ISBN BOOK:", res.data);
-};
-
-const getBooksByAuthor = async (author) => {
-    const res = await axios.get(`${baseURL}/author/${author}`);
-    console.log("AUTHOR BOOKS:", res.data);
-};
-
-const getBooksByTitle = async (title) => {
-    const res = await axios.get(`${baseURL}/title/${title}`);
-    console.log("TITLE BOOKS:", res.data);
-};
-
-// RUN SEQUENTIALLY (VERY IMPORTANT)
-const runAll = async () => {
-    await getAllBooks();
-    await getBookByISBN(1);
-    await getBooksByAuthor("Chinua Achebe");
-    await getBooksByTitle("The Alchemist");
-};
-
-runAll();
+run();
